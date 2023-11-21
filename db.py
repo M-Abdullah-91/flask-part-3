@@ -5,7 +5,7 @@ def mysqlconnect():
         host='localhost',
         user='root',
         password='root',
-        db='google_keep_notes',
+        db='googlenotes',
         cursorclass=pymysql.cursors.DictCursor
     )
     

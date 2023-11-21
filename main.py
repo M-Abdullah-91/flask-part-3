@@ -8,6 +8,9 @@ app.config["SECRET_KEY"] = "THISISSECRETKEY"
 # Register User
 app.add_url_rule('/register', view_func=user.register, methods = ['POST'])
 
+#login user
+app.add_url_rule('/login', view_func=user.login, methods = ['POST'])
+
 
 if __name__ == "__main__":
     app.run(

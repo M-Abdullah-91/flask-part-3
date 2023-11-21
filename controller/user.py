@@ -39,3 +39,21 @@ def register():
     return "Registered Successfully"
 
     
+
+def login():
+    data = request.get_json()
+
+    if data is None:
+        return {"ERROR":"fields are missing"},400
+    
+    user_data = query.login(data)
+
+    token_data = {
+         'username': user_data['user_name'],
+         'email': user_data['email'],
+         'password': user_data['password']
+    }
+
+    token  = jwt.encode(token_data,secret_key,algorithm="HS256")  
+
+    return user_data,200

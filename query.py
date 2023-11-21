@@ -10,12 +10,28 @@ def register(data):
     db_conn = db.mysqlconnect()
     cursor = db_conn.cursor()
     
-    query = "INSERT INTO users(user_name,email,password) VALUES (%s, %s, %s,%s)"
+    query = "INSERT INTO users(user_name,email,password,created_at) VALUES (%s, %s, %s,%s)"
     values = (username, email, password,date.today())
     
     cursor.execute(query, values)
     
     db_conn.commit()
-    db_conn.close()
+    db.disconnect()
 
-    return cursor.lastrowid
+
+def login(data):
+    email = data['email']
+    password = data['password']
+
+    db_conn = db.mysqlconnect()
+    cursor = db_conn.cursor()
+
+    query = "SELECT * FROM users WHERE email=%s AND password=%s "
+    values = (email,password)
+
+    cursor.execute(query,values)
+    db_conn.commit()
+
+    response = cursor.fetchone()
+    return response
+
