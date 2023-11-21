@@ -6,7 +6,7 @@ CREATE TABLE `google_keep_notes`.`users` (
   `user_name` VARCHAR(50) NOT NULL,
   `email` VARCHAR(50) NOT NULL,
   `password` VARCHAR(50) NOT NULL,
-  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` DATE NOT NULL ,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE)
 DEFAULT CHARACTER SET = utf8;
