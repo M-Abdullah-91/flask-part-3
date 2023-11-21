@@ -9,7 +9,6 @@ def mysqlconnect():
         cursorclass=pymysql.cursors.DictCursor
     )
     
-    print("db Connected")
     
     return conn
 
