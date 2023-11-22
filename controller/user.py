@@ -8,18 +8,18 @@ secret_key = "THISISSECRETKEY"
 def token_required(func):
     @wraps(func)
     def token_required(*args,**kwargs):
-        token = request.args.get("token")
+        token = request.headers.get("Authorization")
         
         if token is None or len(token) <= 0:
             return { "ERROR": "Token Required "}, 400
         
-        user=jwt.decode(
+        decoded_token=jwt.decode(
             token, 
             secret_key, 
             algorithms="HS256"
         )
        
-        response =  func(user, *args, *kwargs)
+        response =  func(decoded_token, *args, *kwargs)
 
         return response
         
@@ -49,11 +49,12 @@ def login():
     user_data = query.login(data)
 
     token_data = {
-         'username': user_data['user_name'],
-         'email': user_data['email'],
-         'password': user_data['password']
+        'id':user_data['id'],
+        'email': user_data['email'],
+        'password': user_data['password']
     }
 
-    token  = jwt.encode(token_data,secret_key,algorithm="HS256")  
-
-    return user_data,200
+    token  = jwt.encode(token_data,secret_key,algorithm="HS256")
+    
+    
+    return token,200
